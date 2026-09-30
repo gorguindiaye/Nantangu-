@@ -25,9 +25,17 @@
 :root { color-scheme: light; --background: oklch(0.98 0.01 110); --foreground: oklch(0.24 0.06 155); --card: oklch(1 0 0); --card-foreground: oklch(0.24 0.06 155); --primary: oklch(0.24 0.06 155); --primary-foreground: oklch(1 0 0); --muted: oklch(0.94 0.02 110); --muted-foreground: oklch(0.5 0.03 155); --border: oklch(0.88 0.02 110); --input: oklch(0.88 0.02 110); --ring: oklch(0.56 0.15 145); --radius: 0.75rem; }
 
 * { @apply border-border outline-ring/50; }
-html { scroll-behavior: smooth; }
-body { @apply bg-background text-foreground; margin: 0; }
-button, a { -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { @apply bg-background text-foreground; margin: 0; overflow-x: clip; }
+
+@media (hover: hover) {
+  button, a { -webkit-tap-highlight-color: transparent; }
+}
+
+a, button { touch-action: manipulation; }
+button { cursor: pointer; }
+:where(a, button):focus-visible { outline: 2px solid #27824d; outline-offset: 2px; border-radius: 0.25rem; }
+
 ::selection { background: #f5c84c; color: #14352b; }
 
 @media (prefers-reduced-motion: no-preference) {

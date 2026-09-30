@@ -109,17 +109,17 @@ export function ContentPage({ kind }: { kind: keyof typeof copy }) {
   const Icon = getCardIcon(kind)
 
   return (
-    <main className="min-h-screen bg-[#f7f8f2] text-[#14352b]">
+    <main className="min-h-dvh overflow-x-clip bg-[#f7f8f2] text-[#14352b]">
       <header className="border-b border-[#14352b]/10 bg-[#f7f8f2]/90 px-5 py-5 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link href="/" className="font-bold tracking-[-0.04em]">NATANGUER</Link>
-          <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
+          <Link href="/" className="inline-flex min-h-[44px] items-center font-bold tracking-[-0.04em] lg:min-h-0">NATANGUER</Link>
+          <Link href="/" className="inline-flex min-h-[44px] items-center gap-2 text-sm font-semibold lg:min-h-0">
             <ArrowLeft size={15} /> Accueil
           </Link>
         </div>
       </header>
 
-      <section className="relative mx-auto max-w-6xl overflow-hidden px-5 pb-20 pt-16 lg:pt-24">
+      <section className="relative mx-auto max-w-6xl overflow-hidden px-5 pb-14 pt-10 sm:pb-20 sm:pt-16 lg:pt-24">
         <div className={`pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-br ${data.glow}`} />
 
         <div className="relative fade-up">
@@ -135,7 +135,7 @@ export function ContentPage({ kind }: { kind: keyof typeof copy }) {
               className={`card-animate group rounded-3xl border p-6 shadow-[0_20px_50px_rgba(20,53,43,0.04)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(20,53,43,0.09)] ${data.card}`}
               style={{ animationDelay: `${index * 120}ms` }}
             >
-              <div className={`mb-12 grid h-11 w-11 place-items-center rounded-2xl ${data.accent} text-white`}>
+              <div className={`mb-7 grid h-11 w-11 place-items-center rounded-2xl md:mb-12 ${data.accent} text-white`}>
                 <Icon size={18} />
               </div>
               <p className="text-xs font-bold uppercase tracking-[0.15em] text-[#14352b]/40">0{index + 1}</p>
@@ -147,11 +147,11 @@ export function ContentPage({ kind }: { kind: keyof typeof copy }) {
           ))}
         </div>
 
-        <div className={`card-animate relative mt-12 overflow-hidden rounded-3xl ${data.accent} p-7 text-white`} style={{ animationDelay: '220ms' }}>
+        <div className={`card-animate relative mt-12 overflow-hidden rounded-3xl ${data.accent} p-6 text-white sm:p-7`} style={{ animationDelay: '220ms' }}>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_35%)]" />
           <div className="relative">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#f5c84c]">Prototype</p>
-            <p className="mt-3 max-w-2xl text-lg leading-relaxed text-white/75">
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg">
               Cette page fait partie du prototype NATANGUER. Les contenus absents de la documentation fournie restent volontairement signalés comme démonstration.
             </p>
           </div>
@@ -162,23 +162,38 @@ export function ContentPage({ kind }: { kind: keyof typeof copy }) {
 }
 
 export function FlyerPage() {
+  const siteUrl = 'https://prototype-natangue.vercel.app'
+  const qrImage = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(siteUrl)}`
+
   return (
-    <main className="min-h-screen bg-[#14352b] px-5 py-8 text-white">
+    <main className="min-h-dvh overflow-x-clip bg-[#14352b] px-5 pb-16 pt-10 text-white sm:pb-8 sm:pt-8">
       <div className="mx-auto max-w-md">
-        <Link href="/" className="text-sm text-white/60">← NATANGUER</Link>
-        <div className="mt-12 text-center">
-          <div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-[#f5c84c] text-[#14352b]">
-            <QrCode size={42} />
+        <Link href="/" className="inline-flex min-h-[44px] items-center text-sm text-white/60">← NATANGUER</Link>
+        <div className="mt-6 text-center sm:mt-12">
+          <div className="mx-auto flex aspect-square h-auto w-full max-w-[280px] items-center justify-center overflow-hidden rounded-3xl bg-white p-3 shadow-2xl shadow-[#000000]/15 sm:max-w-[208px]">
+            <img src={qrImage} alt="QR code NATANGUER" width={300} height={300} className="h-full w-full max-w-full rounded-2xl object-contain" />
           </div>
           <p className="mt-7 text-xs font-bold uppercase tracking-[0.2em] text-[#f5c84c]">Flyer Rufisque · accès QR</p>
-          <h1 className="mt-4 text-5xl font-semibold tracking-[-0.07em]">Bienvenue chez NATANGUER.</h1>
+          <h1 className="mt-4 text-[clamp(2.25rem,9vw,3rem)] font-semibold tracking-[-0.07em] sm:text-5xl">Bienvenue chez NATANGUER.</h1>
           <p className="mt-5 text-base leading-relaxed text-white/60">Découvrez la démarche, les engagements et les prochains rendez-vous du mouvement.</p>
         </div>
+
+        <div className="mt-8 flex justify-center">
+          <a
+            href={siteUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full bg-[#f5c84c] px-5 py-3 text-sm font-bold text-[#14352b] transition hover:opacity-90 sm:w-auto"
+          >
+            Ouvrir le site <ArrowRight size={16} />
+          </a>
+        </div>
+
         <div className="mt-12 grid gap-3">
           {[['Le programme', '/programme'], ['Rencontrer le leader', '/leader'], ['La feuille de route', '/feuille-de-route']].map(([label, href]) => (
-            <Link key={href} href={href} className="flex items-center justify-between rounded-2xl bg-white/10 px-5 py-5 font-semibold transition hover:bg-white/15">
+            <Link key={href} href={href} className="flex min-h-[44px] items-center justify-between gap-3 rounded-2xl bg-white/10 px-5 py-5 font-semibold transition hover:bg-white/15">
               {label}
-              <ArrowRight size={18} className="text-[#f5c84c]" />
+              <ArrowRight size={18} className="shrink-0 text-[#f5c84c]" />
             </Link>
           ))}
         </div>
